@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Performers — FILMO{% endblock %}
+
+{% block content %}
+
+<h2>⭐ Registered performers</h2>
+<p class="text-muted">
+  {{ users | length }} performer(s) have signed up. Open a profile to see the talent
+  videos they have uploaded.
+</p>
+
+{% if users %}
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Skills</th>
+            <th>City</th>
+            <th>About</th>
+            <th>Joined</th>
+            <th class="text-end">Videos</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in users %}
+            <tr>
+              <td class="fw-semibold">{{ u.name }}</td>
+              <td>{{ u.email }}</td>
+              <td>{{ u.phone }}</td>
+              <td>{{ u.age }}</td>
+              <td>{{ u.gender }}</td>
+              <td>{{ u.skills }}</td>
+              <td>{{ u.city }}</td>
+              <td class="text-muted small">{{ u.bio | default('', true) | truncate(60) or '—' }}</td>
+              <td>{{ u.created_at | nice_date }}</td>
+              <td class="text-end">
+                <a class="btn btn-dark btn-sm"
+                   href="{{ url_for('view_performer', email=u.email) }}">View profile</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% else %}
+  <div class="alert alert-secondary">No performers have registered yet.</div>
+{% endif %}
+
+<a class="btn btn-secondary mt-4" href="{{ url_for('admin_dashboard') }}">&larr; Back to dashboard</a>
+
+{% endblock %}

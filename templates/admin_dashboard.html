@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Admin dashboard — FILMO{% endblock %}
+
+{% block content %}
+
+<h2>🛡️ Admin dashboard</h2>
+<p class="text-muted">Welcome back, {{ session.get('name') }}.</p>
+
+<!-- Quick numbers at a glance -->
+<div class="row g-3 mb-4">
+
+  <div class="col-md-3">
+    <div class="card shadow-sm border-warning">
+      <div class="card-body text-center">
+        <div class="display-5 fw-bold text-warning">{{ pending_requests }}</div>
+        <div class="text-muted small">Film maker requests waiting</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+        <div class="display-5 fw-bold">{{ approved_makers }}</div>
+        <div class="text-muted small">Approved film makers</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+        <div class="display-5 fw-bold">{{ performers }}</div>
+        <div class="text-muted small">Registered performers</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+        <div class="display-5 fw-bold">{{ total_talents }}</div>
+        <div class="text-muted small">Talent videos</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- The admin's menu -->
+<div class="row g-4">
+
+  <div class="col-md-4">
+    <a class="text-decoration-none text-dark" href="{{ url_for('admin_filmmaker_requests') }}">
+      <div class="card h-100 shadow-sm hover-lift">
+        <div class="card-body">
+          <h5 class="card-title">📥 Film maker requests</h5>
+          <p class="card-text text-muted mb-0">
+            Accept or reject film makers who want to join.
+          </p>
+          {% if pending_requests %}
+            <span class="badge bg-warning text-dark mt-2">{{ pending_requests }} waiting</span>
+          {% endif %}
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="col-md-4">
+    <a class="text-decoration-none text-dark" href="{{ url_for('admin_filmmakers') }}">
+      <div class="card h-100 shadow-sm hover-lift">
+        <div class="card-body">
+          <h5 class="card-title">🎬 Approved film makers</h5>
+          <p class="card-text text-muted mb-0">
+            See every film maker allowed on the platform.
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="col-md-4">
+    <a class="text-decoration-none text-dark" href="{{ url_for('admin_users') }}">
+      <div class="card h-100 shadow-sm hover-lift">
+        <div class="card-body">
+          <h5 class="card-title">⭐ Performers</h5>
+          <p class="card-text text-muted mb-0">
+            View every registered performer, and open a profile to see the
+            talent videos they have uploaded.
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Approved film makers — FILMO{% endblock %}
+
+{% block content %}
+
+<h2>🎬 Approved film makers</h2>
+<p class="text-muted">{{ filmmakers | length }} film maker(s) are allowed on FILMO.</p>
+
+{% if filmmakers %}
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Production house</th>
+            <th>Experience</th>
+            <th>City</th>
+            <th>Joined</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in filmmakers %}
+            <tr>
+              <td class="fw-semibold">{{ m.name }}</td>
+              <td>{{ m.email }}</td>
+              <td>{{ m.phone }}</td>
+              <td>{{ m.company }}</td>
+              <td>{{ m.experience }} yr</td>
+              <td>{{ m.city }}</td>
+              <td>{{ m.created_at | nice_date }}</td>
+              <td><span class="badge bg-success">Approved</span></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% else %}
+  <div class="alert alert-secondary">
+    No film makers approved yet. Check the
+    <a href="{{ url_for('admin_filmmaker_requests') }}">requests page</a>.
+  </div>
+{% endif %}
+
+<a class="btn btn-secondary mt-4" href="{{ url_for('admin_dashboard') }}">&larr; Back to dashboard</a>
+
+{% endblock %}

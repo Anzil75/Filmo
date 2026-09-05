@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}My talent videos — FILMO{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="mb-0">🎥 My talent videos</h2>
+    <p class="text-muted mb-0">
+      {{ talents | length }} video(s) on your profile — film makers can watch these.
+    </p>
+  </div>
+  <a class="btn btn-dark" href="{{ url_for('user_talent_add') }}">➕ Add a video</a>
+</div>
+
+{% if talents %}
+  <div class="row g-3">
+    {% for t in talents %}
+      <div class="col-md-6">
+        <div class="card h-100 shadow-sm hover-lift">
+          <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-start">
+              <h5 class="card-title mb-1">{{ t.title }}</h5>
+              <span class="badge bg-dark">{{ t.category }}</span>
+            </div>
+
+            {% if t.description %}
+              <p class="card-text text-muted small">{{ t.description }}</p>
+            {% endif %}
+
+            <a class="btn btn-outline-dark btn-sm" href="{{ t.video_url }}" target="_blank"
+               rel="noopener">▶ Watch video</a>
+
+            <form method="POST" class="d-inline"
+                  action="{{ url_for('user_talent_delete', talent_id=t.id) }}"
+                  onsubmit="return confirm('Remove this video from your profile?');">
+              <button class="btn btn-outline-danger btn-sm" type="submit">Remove</button>
+            </form>
+
+            <div class="text-muted small mt-2">Added {{ t.created_at | nice_date }}</div>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-secondary">
+    You haven't added any talent videos yet.
+    <a href="{{ url_for('user_talent_add') }}">Add your first one</a> — this is how film
+    makers discover you.
+  </div>
+{% endif %}
+
+<a class="btn btn-secondary mt-4" href="{{ url_for('user_dashboard') }}">&larr; Back to dashboard</a>
+
+{% endblock %}

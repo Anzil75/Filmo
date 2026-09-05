@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}My dashboard — FILMO{% endblock %}
+
+{% block content %}
+
+<h2>⭐ Performer dashboard</h2>
+<p class="text-muted">Welcome back, {{ session.get('name') }}.</p>
+
+<!-- Quick numbers at a glance -->
+<div class="row g-3 mb-4">
+
+  <div class="col-md-6">
+    <div class="card shadow-sm border-warning">
+      <div class="card-body text-center">
+        <div class="display-5 fw-bold text-warning">{{ talent_count }}</div>
+        <div class="text-muted">Talent videos on my profile</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card h-100 shadow-sm bg-light">
+      <div class="card-body">
+        <h6 class="card-title">💡 Getting noticed</h6>
+        <p class="card-text text-muted small mb-0">
+          Film makers browse profiles to find people. The more videos you add
+          and the fuller your profile is, the easier you are to find.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- The performer's menu -->
+<div class="row g-4">
+
+  <div class="col-md-6">
+    <a class="text-decoration-none text-dark" href="{{ url_for('user_talents') }}">
+      <div class="card h-100 shadow-sm hover-lift">
+        <div class="card-body">
+          <h5 class="card-title">🎥 My talent videos</h5>
+          <p class="card-text text-muted mb-0">
+            Add videos of your talent so film makers can watch them.
+          </p>
+          {% if talent_count %}
+            <span class="badge bg-dark mt-2">{{ talent_count }} added</span>
+          {% endif %}
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="col-md-6">
+    <a class="text-decoration-none text-dark" href="{{ url_for('profile') }}">
+      <div class="card h-100 shadow-sm hover-lift">
+        <div class="card-body">
+          <h5 class="card-title">👤 My profile</h5>
+          <p class="card-text text-muted mb-0">
+            Keep your details and skills up to date — this is what film makers read.
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+
+</div>
+
+{% endblock %}

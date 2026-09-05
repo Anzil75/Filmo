@@ -1,0 +1,17 @@
+# The Firebase secret key — NEVER share this or upload it anywhere.
+serviceAccountKey.json
+
+# My list of logins. It has real passwords written in it in plain text.
+LOGINS.txt
+
+# The virtual environment folder (it's big, and anyone can rebuild it from requirements.txt).
+venv/
+
+# Python's automatic cache files.
+__pycache__/
+*.pyc
+
+# Local IDE and editor configurations
+.claude/
+.vscode/
+.env

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Browse performers — FILMO{% endblock %}
+
+{% block content %}
+
+<h2>⭐ Browse performers</h2>
+<p class="text-muted">
+  {{ performers | length }} performer(s) on FILMO. Open a profile to watch their talent videos.
+</p>
+
+{% if performers %}
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>City</th>
+            <th>Skills</th>
+            <th class="text-end">Profile</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in performers %}
+            <tr>
+              <td class="fw-semibold">{{ p.name }}</td>
+              <td>{{ p.age or '-' }}</td>
+              <td>{{ p.gender or '-' }}</td>
+              <td>{{ p.city or '-' }}</td>
+              <td class="text-muted small">{{ p.skills or 'Not mentioned' }}</td>
+              <td class="text-end">
+                <a class="btn btn-dark btn-sm"
+                   href="{{ url_for('view_performer', email=p.email) }}">View profile</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% else %}
+  <div class="alert alert-secondary">
+    No performers have signed up yet. Check back soon.
+  </div>
+{% endif %}
+
+<a class="btn btn-secondary mt-4" href="{{ url_for('filmmaker_dashboard') }}">&larr; Back to dashboard</a>
+
+{% endblock %}

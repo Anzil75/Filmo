@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}{{ performer.name }} — FILMO{% endblock %}
+
+{% block content %}
+
+<h2>👤 {{ performer.name }}</h2>
+<p class="text-muted">Performer profile and talent videos.</p>
+
+<!-- ---------- Their details ---------- -->
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title mb-3">Details</h5>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="text-muted small">Full name</div>
+        <div class="fw-semibold">{{ performer.name }}</div>
+      </div>
+      <div class="col-md-6">
+        <div class="text-muted small">Email</div>
+        <div class="fw-semibold">{{ performer.email }}</div>
+      </div>
+      <div class="col-md-3">
+        <div class="text-muted small">Age</div>
+        <div class="fw-semibold">{{ performer.age or '-' }}</div>
+      </div>
+      <div class="col-md-3">
+        <div class="text-muted small">Gender</div>
+        <div class="fw-semibold">{{ performer.gender or '-' }}</div>
+      </div>
+      <div class="col-md-3">
+        <div class="text-muted small">City</div>
+        <div class="fw-semibold">{{ performer.city or '-' }}</div>
+      </div>
+      <div class="col-md-3">
+        <div class="text-muted small">Phone</div>
+        <div class="fw-semibold">{{ performer.phone or '-' }}</div>
+      </div>
+      <div class="col-12">
+        <div class="text-muted small">Skills</div>
+        <div class="fw-semibold">{{ performer.skills or 'Not mentioned' }}</div>
+      </div>
+      <div class="col-12">
+        <div class="text-muted small">About them</div>
+        <div>{{ performer.bio or 'Nothing written yet.' }}</div>
+      </div>
+      <div class="col-12">
+        <div class="text-muted small">On FILMO since {{ performer.created_at | nice_date }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Their talent videos ---------- -->
+<h5>🎥 Talent videos <span class="badge bg-dark">{{ talents | length }}</span></h5>
+{% if talents %}
+  <div class="row g-3 mb-4">
+    {% for t in talents %}
+      <div class="col-md-6">
+        <div class="card h-100 shadow-sm hover-lift">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start">
+              <h6 class="card-title mb-1 fw-semibold">{{ t.title }}</h6>
+              <span class="badge bg-dark">{{ t.category }}</span>
+            </div>
+            {% if t.description %}
+              <p class="small text-muted mb-2">{{ t.description }}</p>
+            {% endif %}
+            <a class="btn btn-outline-dark btn-sm" href="{{ t.video_url }}" target="_blank"
+               rel="noopener">▶ Watch</a>
+            <div class="text-muted small mt-2">Added {{ t.created_at | nice_date }}</div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-secondary">
+    This performer hasn't put any talent videos on their profile yet.
+  </div>
+{% endif %}
+
+<!-- ---------- Back to wherever this visitor came from ---------- -->
+{% if session.get('role') == 'admin' %}
+  <a class="btn btn-secondary mt-4" href="{{ url_for('admin_users') }}">&larr; Back to performers</a>
+{% else %}
+  <a class="btn btn-secondary mt-4" href="{{ url_for('filmmaker_performers') }}">&larr; Back to performers</a>
+{% endif %}
+
+{% endblock %}

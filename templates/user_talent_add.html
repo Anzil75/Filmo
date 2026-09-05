@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Add a talent video — FILMO{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+
+        <h3 class="card-title mb-1">➕ Add a talent video</h3>
+        <p class="text-muted">
+          Upload your video to YouTube or Google Drive, then paste its link here.
+        </p>
+
+        <form method="POST">
+
+          <div class="row g-3">
+
+            <div class="col-md-8">
+              <label class="form-label">Video title</label>
+              <input type="text" name="title" class="form-control"
+                     placeholder="e.g. Malayalam monologue — emotional scene" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Category</label>
+              <select name="category" class="form-select" required>
+                {% for cat in categories %}
+                  <option value="{{ cat }}">{{ cat }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Video link</label>
+              <input type="url" name="video_url" class="form-control"
+                     placeholder="https://www.youtube.com/watch?v=..." required>
+              <div class="form-text">
+                Make sure the link is set to <strong>anyone can view</strong>, or film makers
+                won't be able to watch it.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Description <span class="text-muted">(optional)</span></label>
+              <textarea name="description" class="form-control" rows="3"
+                        placeholder="A line or two about this performance."></textarea>
+            </div>
+
+          </div>
+
+          <button type="submit" class="btn btn-dark w-100 mt-4">Add to my profile</button>
+        </form>
+
+      </div>
+    </div>
+
+    <a class="btn btn-secondary mt-3" href="{{ url_for('user_talents') }}">&larr; Back to my videos</a>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Performer sign-up — FILMO{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+
+        <h3 class="card-title mb-1">⭐ Performer sign-up</h3>
+        <p class="text-muted">Tell film makers who you are.</p>
+
+        <form method="POST">
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Full name</label>
+              <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email address</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Password</label>
+              <input type="password" name="password" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Phone number</label>
+              <input type="text" name="phone" class="form-control" required>
+            </div>
+
+            <div class="col-md-3">
+              <label class="form-label">Age</label>
+              <input type="number" name="age" class="form-control" min="1" max="120" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Gender</label>
+              <select name="gender" class="form-select" required>
+                {% for g in genders %}
+                  <option value="{{ g }}">{{ g }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-5">
+              <label class="form-label">City</label>
+              <input type="text" name="city" class="form-control" required>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Your skills</label>
+              <input type="text" name="skills" class="form-control"
+                     placeholder="e.g. Acting, Classical dance, Singing" required>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">About you</label>
+              <textarea name="bio" class="form-control" rows="3"
+                        placeholder="A few lines about your experience and what you're looking for."></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-dark w-100 mt-4">Create my account</button>
+        </form>
+
+        <p class="text-center text-muted mt-3 mb-0">
+          Are you a film maker instead?
+          <a href="{{ url_for('register_filmmaker') }}">Sign up here</a>
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

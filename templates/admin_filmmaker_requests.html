@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Film maker requests — FILMO{% endblock %}
+
+{% block content %}
+
+<h2>📥 Film maker requests</h2>
+<p class="text-muted">Approve a film maker and they can log in straight away.</p>
+
+{% if pending %}
+  <div class="card shadow-sm mb-4">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Production house</th>
+            <th>Experience</th>
+            <th>City</th>
+            <th>Requested</th>
+            <th class="text-end">Decision</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in pending %}
+            <tr>
+              <td class="fw-semibold">{{ m.name }}</td>
+              <td>{{ m.email }}</td>
+              <td>{{ m.phone }}</td>
+              <td>{{ m.company }}</td>
+              <td>{{ m.experience }} yr</td>
+              <td>{{ m.city }}</td>
+              <td>{{ m.created_at | nice_date }}</td>
+              <td class="text-end text-nowrap">
+                <!-- Each button is its own little form that POSTs the decision -->
+                <form method="POST" class="d-inline"
+                      action="{{ url_for('admin_handle_filmmaker', email=m.email, action='accept') }}">
+                  <button class="btn btn-success btn-sm" type="submit">Accept</button>
+                </form>
+                <form method="POST" class="d-inline"
+                      action="{{ url_for('admin_handle_filmmaker', email=m.email, action='reject') }}">
+                  <button class="btn btn-outline-danger btn-sm" type="submit">Reject</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% else %}
+  <div class="alert alert-success">No requests waiting — you're all caught up. ✅</div>
+{% endif %}
+
+{% if rejected %}
+  <h5 class="mt-4">Previously rejected</h5>
+  <p class="text-muted small">Changed your mind? You can still let them in.</p>
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-sm align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Production house</th>
+            <th>City</th>
+            <th class="text-end">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in rejected %}
+            <tr class="text-muted">
+              <td>{{ m.name }}</td>
+              <td>{{ m.email }}</td>
+              <td>{{ m.company }}</td>
+              <td>{{ m.city }}</td>
+              <td class="text-end">
+                <form method="POST" class="d-inline"
+                      action="{{ url_for('admin_handle_filmmaker', email=m.email, action='accept') }}">
+                  <button class="btn btn-outline-success btn-sm" type="submit">Accept after all</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endif %}
+
+<a class="btn btn-secondary mt-4" href="{{ url_for('admin_dashboard') }}">&larr; Back to dashboard</a>
+
+{% endblock %}

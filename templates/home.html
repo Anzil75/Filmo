@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}FILMO — Where Talent Meets Opportunity{% endblock %}
+
+{% block content %}
+
+<!-- The big welcome banner -->
+<div class="hero p-5 mb-4 text-center">
+  <h1 class="display-4 fw-bold">Welcome to FILM<span class="text-gold">O</span></h1>
+  <p class="lead">Where talent meets opportunity — performers discovered online.</p>
+  {% if session.get('email') %}
+    <a class="btn btn-warning btn-lg fw-semibold"
+       href="{{ url_for(session.get('role') + '_dashboard') }}">Go to my dashboard</a>
+  {% else %}
+    <a class="btn btn-warning btn-lg fw-semibold" href="{{ url_for('register_choice') }}">Get Started</a>
+    <a class="btn btn-outline-light btn-lg" href="{{ url_for('login') }}">Login</a>
+  {% endif %}
+</div>
+
+<!-- Three cards explaining who the website is for -->
+<div class="row g-4">
+
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm hover-lift text-center">
+      <div class="card-body">
+        <div class="display-5">⭐</div>
+        <h5 class="card-title mt-2">Performers</h5>
+        <p class="card-text text-muted">
+          Build your profile and put videos of your talent on it, so film makers
+          can find you.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm hover-lift text-center">
+      <div class="card-body">
+        <div class="display-5">🎬</div>
+        <h5 class="card-title mt-2">Film Makers</h5>
+        <p class="card-text text-muted">
+          Browse performer profiles, watch their talent videos, and get in touch
+          with the ones you want.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm hover-lift text-center">
+      <div class="card-body">
+        <div class="display-5">🛡️</div>
+        <h5 class="card-title mt-2">Admin</h5>
+        <p class="card-text text-muted">
+          Approve film makers, and oversee every performer and talent video on
+          the platform.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- How the whole thing works, in four steps -->
+<h4 class="mt-5 mb-3 text-center">How FILMO works</h4>
+<div class="row g-4 text-center">
+
+  <div class="col-md-3">
+    <div class="card h-100 shadow-sm hover-lift">
+      <div class="card-body">
+        <span class="badge bg-dark mb-2">Step 1</span>
+        <h6 class="fw-semibold">A performer signs up</h6>
+        <p class="card-text text-muted small mb-0">
+          Their age, city, skills and a few words about themselves.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card h-100 shadow-sm hover-lift">
+      <div class="card-body">
+        <span class="badge bg-dark mb-2">Step 2</span>
+        <h6 class="fw-semibold">They add talent videos</h6>
+        <p class="card-text text-muted small mb-0">
+          Acting, dancing, singing — whatever they want to be seen doing.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card h-100 shadow-sm hover-lift">
+      <div class="card-body">
+        <span class="badge bg-dark mb-2">Step 3</span>
+        <h6 class="fw-semibold">A film maker browses</h6>
+        <p class="card-text text-muted small mb-0">
+          Only film makers the admin has approved are allowed to look.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card h-100 shadow-sm hover-lift">
+      <div class="card-body">
+        <span class="badge bg-warning text-dark mb-2">Step 4</span>
+        <h6 class="fw-semibold">Talent gets discovered</h6>
+        <p class="card-text text-muted small mb-0">
+          They watch the videos and contact the performer directly.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

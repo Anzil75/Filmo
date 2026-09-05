@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} — FILMO{% endblock %}
+
+{% block content %}
+
+<div class="text-center py-5">
+  <div class="display-1">🎬</div>
+  <h2 class="mt-3">{{ heading }}</h2>
+  <p class="text-muted lead">{{ message }}</p>
+
+  <a class="btn btn-warning fw-semibold mt-3" href="{{ url_for('home') }}">Back to the home page</a>
+  {% if session.get('role') %}
+    <a class="btn btn-outline-dark mt-3"
+       href="{{ url_for(session.get('role') + '_dashboard') }}">My dashboard</a>
+  {% endif %}
+</div>
+
+{% endblock %}

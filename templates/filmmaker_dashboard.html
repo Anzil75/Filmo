@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Film maker dashboard — FILMO{% endblock %}
+
+{% block content %}
+
+<h2>🎬 Film maker dashboard</h2>
+<p class="text-muted">Welcome back, {{ session.get('name') }}.</p>
+
+<!-- Quick numbers at a glance -->
+<div class="row g-3 mb-4">
+
+  <div class="col-md-6">
+    <div class="card shadow-sm border-warning">
+      <div class="card-body text-center">
+        <div class="display-5 fw-bold text-warning">{{ performer_count }}</div>
+        <div class="text-muted">Performers on FILMO</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+        <div class="display-5 fw-bold">{{ video_count }}</div>
+        <div class="text-muted">Talent videos to watch</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- The film maker's menu -->
+<div class="row g-4">
+
+  <div class="col-md-6">
+    <a class="text-decoration-none text-dark" href="{{ url_for('filmmaker_performers') }}">
+      <div class="card h-100 shadow-sm hover-lift">
+        <div class="card-body">
+          <h5 class="card-title">⭐ Browse performers</h5>
+          <p class="card-text text-muted mb-0">
+            See everyone who has signed up, then open a profile to read their
+            details and watch their talent videos.
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card h-100 shadow-sm bg-light">
+      <div class="card-body">
+        <h5 class="card-title">💡 How to find talent</h5>
+        <p class="card-text text-muted mb-0">
+          Open <strong>Browse performers</strong>, look at the skills column to
+          spot the right people, then click <strong>View profile</strong> to
+          watch their videos and get their phone number.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
